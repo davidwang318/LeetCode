@@ -1,3 +1,4 @@
+// 0ms
 class Solution {
 public:
     int hammingDistance(int x, int y) {
@@ -6,13 +7,15 @@ public:
             // hDist += (x % 2 != y % 2);
             hDist += ((x&1) != (y&1));
             // x /= 2; y /= 2;
-            x >>= 1; y >>= 1;
-	    if(!(x||y)) break;
+            x >>= 1;
+            y >>= 1;
+            if(!(x || y)) break;
         }
         return hDist;
     }
 };
-// Nice using XOR
+
+// Good use of XOR
 class Solution {
 public:
     int hammingDistance(int x, int y) {
@@ -24,5 +27,4 @@ public:
         return hDist;
     }
 };
-
 
