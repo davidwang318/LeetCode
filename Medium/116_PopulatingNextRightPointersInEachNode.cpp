@@ -35,3 +35,22 @@ public:
         return root;        
     }
 };
+// 10.07.2020 
+// Another answer
+class Solution {
+public:
+    Node* connect(Node* root) {
+        if(!root) return root;
+        queue<Node*> s{{root}};
+        while(!s.empty()){
+            int len = s.size();
+            for(int i = 0; i < len; i++){
+                auto head = s.front(); s.pop();
+                if(head -> left) s.push(head -> left);
+                if(head -> right) s.push(head -> right);
+                if (i != len-1) head -> next = s.front();
+            }
+        }
+        return root;
+    }
+};
