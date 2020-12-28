@@ -58,3 +58,27 @@ private:
         return l;
     }
 };
+
+// Another type of upper bound
+class Solution {
+public:
+    int kthSmallest(vector<vector<int>>& matrix, int k) {
+        int left = matrix[0][0], right = matrix.back().back(), len = matrix.size() - 1;
+        while(left < right) {
+            int mid = left + (right - left) / 2, cnt = 0;
+            for (auto& row : matrix) {
+                cnt += count_upper(row, mid, 0, len);
+            }
+            if (cnt >= k) right = mid;
+            else left = mid + 1;
+        }
+        return left;
+    }
+private: 
+    int count_upper(vector<int>& v, int target, int left, int right){
+        if (v[left] > target) return 0;
+        if (v[right] <= target) return right - left + 1;
+        int mid = left + (right - left) / 2;
+        return count_upper(v, target, left, mid) + count_upper(v, target, mid+1, right);
+    }
+}
