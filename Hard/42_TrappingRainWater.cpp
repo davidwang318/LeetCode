@@ -1,3 +1,26 @@
+// Monostack solution
+// Hard to get the concept
+class Solution {
+public:
+    int trap(vector<int>& height) {
+        stack<int> s;
+        int i = 0, res = 0, len = height.size();
+        while(i < len) {
+            if (s.empty() || height[i] < height[s.top()]) {
+                s.push(i++);
+            }
+            else {
+                int curHeight = height[i];
+                int midHeight = height[s.top()]; s.pop();
+                if (s.empty()) continue;
+                int leftHeight = height[s.top()];
+                res += (min(curHeight, leftHeight) - midHeight) * (i - s.top() - 1);
+            }
+        }
+        return res;
+    }
+};
+
 // First time solving hard question on my own
 // But this should be Medium difficulty
 class Solution {

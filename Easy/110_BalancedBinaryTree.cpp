@@ -45,3 +45,21 @@ private:
         return max(left, right) + 1;
     }
 };
+
+// O(N) 
+class Solution {
+public:
+    bool isBalanced(TreeNode* root) {
+        return getLength(root) != INT_MIN;
+    }
+    
+private:
+    int getLength(TreeNode* root) {
+        if(!root) return -1;
+        int left = getLength(root -> left);
+        if (left == INT_MIN) return INT_MIN;
+        int right = getLength(root -> right);
+        if (right == INT_MIN || abs(left - right) > 1) return INT_MIN;
+        return max(left, right) + 1;
+    }
+};
