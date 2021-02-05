@@ -1,3 +1,38 @@
+// Better solution
+/*
+Can't determine which one is totally the same:
+112111111
+111111211
+so we can't do anything when there is the same at both end
+but if we know it's not the same at one end
+2111111
+1111112
+we can determine the order
+*/
+class Solution {
+public:
+    bool search(vector<int>& nums, int target) {
+        int l = 0, r = nums.size() - 1;
+        while(l <= r) {
+            int m = l + (r - l) / 2;
+            if (nums[m] == target) return true;
+            if (nums[m] == nums[l]) l++;
+            else if (nums[m] == nums[r]) r--;
+            // right in order
+            else if (nums[m] < nums[r]) {
+                if (target > nums[m] && target <= nums[r]) l = m + 1;
+                else r = m - 1;
+            }
+            // left in order
+            else {
+                if (target < nums[m] && target >= nums[l]) r = m - 1;
+                else l = m + 1;
+            }
+        }
+        return false;
+    }
+};
+
 // Very hard to me
 class Solution {
 public:
