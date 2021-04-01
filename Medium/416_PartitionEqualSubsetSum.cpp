@@ -1,3 +1,26 @@
+// Revisit, so hard...
+// Related to the 01 backpack problem
+// This solution is using the same method as the next one, but without space optimization
+class Solution {
+public:
+    bool canPartition(vector<int>& nums) {
+        int numSum = 0;
+        for (const auto num : nums) numSum += num;
+        if (numSum % 2) return false;
+        else numSum /= 2;
+        int len = nums.size();
+        vector<vector<bool>> dp (len + 1, vector<bool>(numSum + 1, 0));
+        for (int i = 0; i < len; ++i) {
+            dp[i][0] = true;
+            for (int j = 1; j <= numSum; ++j) {
+                if (j >= nums[i])
+                    dp[i+1][j] = dp[i][j-nums[i]] || dp[i][j];
+            }
+        }
+        return dp.back().back();
+    }
+};
+
 // Great using of Dynamic Programming
 class Solution {
 public:

@@ -1,3 +1,28 @@
+// Revisit, 20210216
+class Solution {
+public:
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        vector<vector<int>> res;
+        vector<int> cur;
+        dfs(res, candidates, cur, target, 0);
+        return res;        
+    }
+private:
+    void dfs(vector<vector<int>>& res, vector<int>& candidates, vector<int>& cur, int target, int start) {
+        if (target == 0) {
+            res.push_back(cur);
+            return;
+        }
+        if (target < 0) return;
+        for (int i = start; i < candidates.size(); ++i) {
+            cur.push_back(candidates[i]);
+            dfs(res, candidates, cur, target - candidates[i], i);
+            cur.pop_back();
+        }
+        return;
+    }
+};
+
 // First attempt. Need to review DFS.
 // Time: 97.25%, Memory: 100.00%
 class Solution {

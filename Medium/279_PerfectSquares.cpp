@@ -1,3 +1,21 @@
+// Revisit at 20210307, still can't solve it at the first glance.
+// Much intuitive solution
+class Solution {
+public:
+    int numSquares(int n) {
+        vector<int> dp (n + 1, 0);
+        return numSquares(n, dp);
+    }
+private:
+    int numSquares(int n, vector<int>& dp) {
+        if (n == 0 || dp[n] != 0) return dp[n];
+        int res = INT_MAX;
+        for (int i = 1; i * i <= n; ++i) {
+            res = min(res, numSquares(n - i * i, dp) + 1);
+        }
+        return dp[n] = res;
+    }
+};
 // So hard...
 class Solution {
 public:

@@ -1,3 +1,24 @@
+// My second solution, 20210308
+class Solution {
+public:
+    bool wordBreak(string s, vector<string>& wordDict) {
+        if (s.empty()) return true;
+        unordered_set<string> wordSet {wordDict.begin(), wordDict.end()};
+        queue<int> candidate {{0}};
+        vector<bool> dp (s.size(), false);
+        while(!candidate.empty() && !dp.back()) {
+            int start = candidate.front(); candidate.pop();
+            for (int i = 1; i <= s.size() - start; ++i) {
+                if (dp[start+i-1]) continue;
+                if (wordSet.count(s.substr(start, i))) {
+                    dp[start + i - 1] = true;
+                    candidate.push(start + i);
+                }
+            }
+        }
+        return dp.back();
+    }
+};
 // My solution
 class Solution {
 public:
